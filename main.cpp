@@ -10,9 +10,7 @@ void printDebugString(char* debugString);
 
 std::string getClipboardText();
 std::string createUrlString(std::string args);
-std::string argsAsUrlStr(std::string args);
 std::wstring strTowStr(const std::string & s);
-
 
 int APIENTRY _tWinMain(HINSTANCE hInstance,
 	HINSTANCE hPrevInstance,
@@ -22,7 +20,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	std::string clipBoardText;
 	MSG msg = { 0 };
 	
-	if (RegisterHotKey(NULL,1,MOD_CONTROL,0x42))
+	if (RegisterHotKey(NULL,1,MOD_SHIFT,VK_RETURN))
 	{
 		printDebugString("Failed to register ctlr-b!");
 	}
@@ -92,13 +90,6 @@ std::string createUrlString(std::string args)
 	return std::string("https://google.com/search?q=" + argsAsUrlStr(args));
 }
 
-std::string argsAsUrlStr(std::string args)
-{	
-	//std::string tmp = args.replace(args.begin(), args.end(), ' ', '+');
-	//return tmp;
-	return args;
-}
-
 // https://stackoverflow.com/questions/27220/how-to-convert-stdstring-to-lpcwstr-in-c-unicode
 std::wstring strTowStr(const std::string & s) 
 {
@@ -111,8 +102,6 @@ std::wstring strTowStr(const std::string & s)
 	MultiByteToWideChar(CP_ACP, 0, s.c_str(), slength, buf, len);
 	
 	std::wstring r(buf);
-	
 	delete[] buf;
-	
 	return r;
 }
